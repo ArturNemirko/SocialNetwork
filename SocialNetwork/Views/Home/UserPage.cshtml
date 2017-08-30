@@ -1,0 +1,35 @@
+﻿@model SocialNetwork.Models.ApplicationUser
+@{
+    ViewBag.Title = "User";
+}
+
+
+
+@using (Html.BeginForm("Subscribe", "Home", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="row">
+        <div class="col-md-3">
+            <h4>@Model.Email</h4>
+            <input type="submit" value="Subscribe" class="btn btn-default" />
+        </div>
+
+        <div class="col-md-6">
+            @foreach (var post in Model.MyPosts)
+            {
+                <a href="@Url.Action("UserPage", new { id = post.Creator.Id })">
+                    <h2>@post.Creator.Email</h2>
+                </a>
+                <p>
+                    @post.Description.Content
+                </p>
+            }
+        </div>
+
+    </div>
+    @*<div class="row">
+
+
+        </div>*@
+}
+

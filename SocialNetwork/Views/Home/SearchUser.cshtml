@@ -1,0 +1,24 @@
+﻿@model IEnumerable<SocialNetwork.Models.ApplicationUser>
+@{
+    ViewBag.Title = "SearchUser";
+}
+
+<h2>SearchUser</h2>
+
+@using (Html.BeginForm("SearchUser", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Search your friend</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    foreach (var item in Model)
+    {
+        <a href="@Url.Action("UserPage", new { id = item.Id })">
+            <div class="col-md-10">
+                @Html.Label(item.Email)
+            </div>
+        </a>
+
+    }
+}
+

@@ -1,0 +1,6 @@
+.navbar-nav > li > form {
+    padding-top: 7.5px;
+    padding-bottom: 15px;
+    z-index: 100;
+    position: relative;
+  }
