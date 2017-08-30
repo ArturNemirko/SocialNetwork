@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SocialNetwork.Models;
+using System.IO;
+using SocialNetwork.Models.Entities;
 
 namespace SocialNetwork.Controllers
 {
@@ -50,6 +52,39 @@ namespace SocialNetwork.Controllers
             }
         }
 
+
+        public async Task<ActionResult> ChangeProfile()
+        {
+            var userId = User.Identity.GetUserId();
+            var model = new IndexViewModel
+            {
+                HasPassword = HasPassword(),
+                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+                Logins = await UserManager.GetLoginsAsync(userId),
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                User = await UserManager.FindByIdAsync(User.Identity.GetUserId())
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeProfile(IndexViewModel vm, HttpPostedFileBase uploadImage)
+        {
+            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+            if (uploadImage != null)
+            {
+                byte[] imageData = null;
+                using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                {
+                    imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                }
+                user.ProfilePicture = new Image() { ImageBytes = imageData };
+                UserManager.Update(user);
+                vm.User = user;
+            }
+            return View("Index", vm);
+        }
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
@@ -70,7 +105,8 @@ namespace SocialNetwork.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                User = await UserManager.FindByIdAsync(userId)
             };
             return View(model);
         }

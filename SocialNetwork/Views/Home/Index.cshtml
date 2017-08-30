@@ -21,9 +21,18 @@
         foreach (var post in Model)
         {
             <div class="col-md-6 col-lg-offset-3">
+
                 <a href="@Url.Action("UserPage", new { id = post.Creator.Id })">
-                    <h2>@post.Creator.Email</h2>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <img src="@Url.Action("GetUserImage", "Global", new { id = post.Creator.Id })" class="avatar" alt="image">
+                        </div>
+                        <div class="col-md-11">
+                            <h4>@post.Creator.Email</h4>
+                        </div>
+                    </div>
                 </a>
+
                 <p>
                     @post.Description.Content
                 </p>

@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GlobalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -212,6 +213,10 @@
     <Compile Include="Migrations\201708291424506_DatePublishPost.cs" />
     <Compile Include="Migrations\201708291424506_DatePublishPost.Designer.cs">
       <DependentUpon>201708291424506_DatePublishPost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708301301138_ReadableReaders.cs" />
+    <Compile Include="Migrations\201708301301138_ReadableReaders.Designer.cs">
+      <DependentUpon>201708301301138_ReadableReaders.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -328,9 +333,11 @@
     <Content Include="Views\Home\CreatePost.cshtml" />
     <Content Include="Views\Home\SearchUser.cshtml" />
     <Content Include="Views\Home\UserPage.cshtml" />
+    <Content Include="Views\Manage\ChangeProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Global\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -348,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708291424506_DatePublishPost.resx">
       <DependentUpon>201708291424506_DatePublishPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708301301138_ReadableReaders.resx">
+      <DependentUpon>201708301301138_ReadableReaders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

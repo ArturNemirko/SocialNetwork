@@ -55,14 +55,14 @@ namespace SocialNetwork.Controllers
                 string idCrntUser = User.Identity.GetUserId();
                 var user = context.Users.FirstOrDefault(u => u.Id == idCrntUser);
 
-                if(user.Subscribes == null)
+                if(user.Readable == null)
                 {
                     return View();
                 }  
 
                 var posts = new LinkedList<Post>();
 
-                foreach (var item in user.Subscribes)
+                foreach (var item in user.Readable)
                 {
                     foreach (var p in item.MyPosts)
                     {
@@ -113,11 +113,11 @@ namespace SocialNetwork.Controllers
                 var user_sub = context.Users.FirstOrDefault(u => u.Id == id.ToString());
 
                 //ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
-                if (user.Subscribes == null)
+                if (user.Readable == null)
                 {
-                    user.Subscribes = new List<ApplicationUser>();
+                    user.Readable = new List<ApplicationUser>();
                 }
-                user.Subscribes.Add(user_sub);
+                user.Readable.Add(user_sub);
 
                 context.Entry(user).State = EntityState.Modified;
                 context.SaveChanges();

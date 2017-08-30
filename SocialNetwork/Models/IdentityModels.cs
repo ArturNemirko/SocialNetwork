@@ -13,9 +13,11 @@ namespace SocialNetwork.Models
     public class ApplicationUser : IdentityUser, ICloneable
     {
         public string FirstName { get; set; }
-        public Image ProfilePicture { get; set; }
+        public virtual Image ProfilePicture { get; set; }
         public virtual ICollection<Post> MyPosts { get; set; }
-        public virtual ICollection<ApplicationUser> Subscribes { get; set; }
+        public virtual ICollection<ApplicationUser> Readable { get; set; }
+        public virtual ICollection<ApplicationUser> Readers { get; set; }
+        
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -36,6 +38,7 @@ namespace SocialNetwork.Models
                 AccessFailedCount = this.AccessFailedCount,
                 Email = this.Email,
                 Id = this.Id,
+                ProfilePicture = this.ProfilePicture,
                 MyPosts = posts
             };
         }
