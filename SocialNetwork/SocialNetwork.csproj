@@ -234,6 +234,18 @@
     <Compile Include="Migrations\201709011353289_RemoveLikesSets.Designer.cs">
       <DependentUpon>201709011353289_RemoveLikesSets.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709011444458_LikesPosts.cs" />
+    <Compile Include="Migrations\201709011444458_LikesPosts.Designer.cs">
+      <DependentUpon>201709011444458_LikesPosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709011453386_TestVirt.cs" />
+    <Compile Include="Migrations\201709011453386_TestVirt.Designer.cs">
+      <DependentUpon>201709011453386_TestVirt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709011507435_Test.cs" />
+    <Compile Include="Migrations\201709011507435_Test.Designer.cs">
+      <DependentUpon>201709011507435_Test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entities\Comment.cs" />
@@ -393,6 +405,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709011353289_RemoveLikesSets.resx">
       <DependentUpon>201709011353289_RemoveLikesSets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709011444458_LikesPosts.resx">
+      <DependentUpon>201709011444458_LikesPosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709011453386_TestVirt.resx">
+      <DependentUpon>201709011453386_TestVirt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709011507435_Test.resx">
+      <DependentUpon>201709011507435_Test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

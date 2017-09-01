@@ -175,3 +175,6 @@ E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.HomeViewMod
 E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.Comments.resources
 E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.LikesSets.resources
 E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.RemoveLikesSets.resources
+E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.LikesPosts.resources
+E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.TestVirt.resources
+E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.Test.resources

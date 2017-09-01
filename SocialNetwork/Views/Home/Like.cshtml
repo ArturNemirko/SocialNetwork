@@ -4,18 +4,18 @@
 @Html.HiddenFor(u => u.Like)
 
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-1">
         @if (Model.Like)
         {
-            <button type="submit">Like</button>
+            <button type="submit"></button>         
         }
         else
         {
-            <button type="submit">NoLike</button>
+            <button type="submit" class="noLike"><div id="divNoLike">
+</div><h6>@Model.CountLike</h6></button>
         }
     </div>
     <div >
-        <h6>@Model.CountLike</h6>
     </div>
     
     @*<img src="~/Content/image/like.png" style="width:30px; height:30px"/>*@

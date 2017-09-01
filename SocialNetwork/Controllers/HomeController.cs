@@ -55,12 +55,20 @@ namespace SocialNetwork.Controllers
                 string idCrntUser = User.Identity.GetUserId();
                 var user = context.Users.FirstOrDefault(u => u.Id == idCrntUser);
 
-                if(user.Readable == null)
+                if((user.Readable == null || user.Readable.Count == 0) && 
+                    (user.MyPosts == null || user.MyPosts.Count == 0))
                 {
                     return View();
                 }  
-
+  
                 var posts = new LinkedList<PostViewModel>();
+
+                foreach(var item in user.MyPosts)
+                {
+                    var post = GeneratePVM(item);
+
+                    posts.AddLast(post);
+                }
 
                 foreach (var item in user.Readable)
                 {
@@ -167,7 +175,7 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpPost]
-        public void Subscribe(Guid id)
+        public ActionResult Subscribe(Guid id)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
@@ -184,8 +192,10 @@ namespace SocialNetwork.Controllers
 
                 context.Entry(user).State = EntityState.Modified;
                 context.SaveChanges();
-            }
 
+                return View("UserPage", user_sub.Clone());
+
+            }
         }
 
         public ActionResult SearchUser()

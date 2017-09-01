@@ -21,7 +21,7 @@
         <div class="col-md-6">
             @foreach (var post in Model.User.MyPosts)
             {
-                <a href="@Url.Action("UserPage", new { id = post.Creator.Id })">
+                <a href="@Url.Action("UserPage", "Home", new { id = post.Creator.Id })">
                     <h2>@post.Creator.Email</h2>
                 </a>
                 <p>
