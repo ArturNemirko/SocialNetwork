@@ -17,7 +17,6 @@ namespace SocialNetwork.Models
         public virtual ICollection<Post> MyPosts { get; set; }
         public virtual ICollection<ApplicationUser> Readable { get; set; }
         public virtual ICollection<ApplicationUser> Readers { get; set; }
-        
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

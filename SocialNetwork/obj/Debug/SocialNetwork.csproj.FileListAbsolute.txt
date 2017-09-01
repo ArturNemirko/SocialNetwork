@@ -171,3 +171,7 @@ E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.csproj.GenerateResourc
 E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.dll
 E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.pdb
 E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.ReadableReaders.resources
+E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.HomeViewModel.resources
+E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.Comments.resources
+E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.LikesSets.resources
+E:\SocialNetworkGit\SocialNetwork\obj\Debug\SocialNetwork.Migrations.RemoveLikesSets.resources

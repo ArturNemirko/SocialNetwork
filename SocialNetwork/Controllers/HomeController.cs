@@ -60,23 +60,86 @@ namespace SocialNetwork.Controllers
                     return View();
                 }  
 
-                var posts = new LinkedList<Post>();
+                var posts = new LinkedList<PostViewModel>();
 
                 foreach (var item in user.Readable)
                 {
                     foreach (var p in item.MyPosts)
                     {
-                        posts.AddLast((Post)p.Clone());
+                        var post = GeneratePVM(p);
+
+                        posts.AddLast(post);
                     }
                 }
-                //var posts = context.Posts.Select(u => u).ToList();
-                //var show_posts = new List<Post>();
-                //foreach (var item in posts)
-                //{
-                //    show_posts.Add((Post)item.Clone());
-                //}
                 return View(posts.OrderByDescending(u => u.DatePublish));
             }
+        }
+
+        [HttpPost]
+        public ActionResult Like(PostViewModel postVM)
+        {
+            using(ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var post = context.Posts.First(u => u.Id == postVM.Id);
+
+                string idCrntUser = User.Identity.GetUserId();
+                var user = context.Users.FirstOrDefault(u => u.Id == idCrntUser);
+
+                if (!postVM.Like)
+                {
+                    post.Likes.Add(user);
+                }
+                else
+                {
+                    post.Likes.Remove(user);
+                }
+
+                postVM = GeneratePVM(post, !postVM.Like);
+                
+                context.Entry(post).State = EntityState.Modified;
+                context.SaveChanges();
+
+                return PartialView(postVM);
+            }
+        }
+
+        private PostViewModel GeneratePVM(Post p, bool? likePost = null)
+        {
+            using(ApplicationDbContext context = new ApplicationDbContext())
+            {
+                string idCrntUser = User.Identity.GetUserId();
+                var user = context.Users.FirstOrDefault(u => u.Id == idCrntUser);
+
+                var post = new PostViewModel()
+                {
+                    Id = p.Id,
+                    Creator = p.Creator,
+                    DatePublish = p.DatePublish,
+                    Image = p.Image,
+                    Description = p.Description
+                };
+
+                post.CountLike = p.Likes.Count;
+
+                if (likePost != null)
+                {
+                    post.Like = (bool)likePost;
+                }
+                else
+                {
+                    foreach (var like in p.Likes)
+                    {
+                        if (like.Id == user.Id)
+                        {
+                            post.Like = true;
+                            break;
+                        }
+                    }
+                }
+
+                return post;
+            }
+            
         }
 
         public ActionResult CreatePost()

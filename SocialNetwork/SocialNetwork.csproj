@@ -218,11 +218,29 @@
     <Compile Include="Migrations\201708301301138_ReadableReaders.Designer.cs">
       <DependentUpon>201708301301138_ReadableReaders.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709011057374_HomeViewModel.cs" />
+    <Compile Include="Migrations\201709011057374_HomeViewModel.Designer.cs">
+      <DependentUpon>201709011057374_HomeViewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709011313414_Comments.cs" />
+    <Compile Include="Migrations\201709011313414_Comments.Designer.cs">
+      <DependentUpon>201709011313414_Comments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709011349016_LikesSets.cs" />
+    <Compile Include="Migrations\201709011349016_LikesSets.Designer.cs">
+      <DependentUpon>201709011349016_LikesSets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709011353289_RemoveLikesSets.cs" />
+    <Compile Include="Migrations\201709011353289_RemoveLikesSets.Designer.cs">
+      <DependentUpon>201709011353289_RemoveLikesSets.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Entities\Comment.cs" />
     <Compile Include="Models\Entities\Description.cs" />
     <Compile Include="Models\Entities\Image.cs" />
     <Compile Include="Models\Entities\Post.cs" />
+    <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -288,6 +306,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -334,10 +354,13 @@
     <Content Include="Views\Home\SearchUser.cshtml" />
     <Content Include="Views\Home\UserPage.cshtml" />
     <Content Include="Views\Manage\ChangeProfile.cshtml" />
+    <Content Include="Views\Home\Like.cshtml" />
+    <Content Include="Views\Home\Post.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Global\" />
+    <Folder Include="Views\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -358,6 +381,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708301301138_ReadableReaders.resx">
       <DependentUpon>201708301301138_ReadableReaders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709011057374_HomeViewModel.resx">
+      <DependentUpon>201709011057374_HomeViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709011313414_Comments.resx">
+      <DependentUpon>201709011313414_Comments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709011349016_LikesSets.resx">
+      <DependentUpon>201709011349016_LikesSets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709011353289_RemoveLikesSets.resx">
+      <DependentUpon>201709011353289_RemoveLikesSets.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

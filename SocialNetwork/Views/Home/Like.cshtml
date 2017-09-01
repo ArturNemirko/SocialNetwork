@@ -1,0 +1,24 @@
+﻿@model SocialNetwork.Models.PostViewModel
+
+@Html.HiddenFor(u => u.Id)
+@Html.HiddenFor(u => u.Like)
+
+<div class="row">
+    <div class="col-md-2">
+        @if (Model.Like)
+        {
+            <button type="submit">Like</button>
+        }
+        else
+        {
+            <button type="submit">NoLike</button>
+        }
+    </div>
+    <div >
+        <h6>@Model.CountLike</h6>
+    </div>
+    
+    @*<img src="~/Content/image/like.png" style="width:30px; height:30px"/>*@
+</div>
+
+

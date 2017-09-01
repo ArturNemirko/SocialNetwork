@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SocialNetwork.Models.Entities.Post>
+﻿@model IEnumerable<SocialNetwork.Models.PostViewModel>
 @{
     ViewBag.Title = "Home Page";
 }
@@ -36,8 +36,16 @@
                 <p>
                     @post.Description.Content
                 </p>
+                @using (Ajax.BeginForm("Like", new AjaxOptions { UpdateTargetId = post.Id.ToString() }))
+                {
+                    <div id="@post.Id.ToString()">
+                        @Html.Partial("Like", post)
+                    </div>
+                }
             </div>
         }
+
+
     }
 </div>
 @section scripts{
