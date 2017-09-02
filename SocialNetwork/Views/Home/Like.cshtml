@@ -7,18 +7,29 @@
     <div class="col-md-1">
         @if (Model.Like)
         {
-            <button type="submit"></button>         
+            <button type="submit" class="noLike">
+                <div id="divLike">
+                </div><h6>@Model.CountLike</h6>
+            </button>
         }
         else
         {
-            <button type="submit" class="noLike"><div id="divNoLike">
-</div><h6>@Model.CountLike</h6></button>
+            <button type="submit" class="noLike">
+                <div id="divNoLike">
+                </div><h6>@Model.CountLike</h6>
+            </button>
         }
     </div>
-    <div >
-    </div>
-    
-    @*<img src="~/Content/image/like.png" style="width:30px; height:30px"/>*@
+
+    <a href="@Url.Action("PostPage", new { id = Model.Id })">
+        <div class="col-md-1">
+            <button type="button" class="noLike">
+                <div id="divComment">
+                </div><h6>@Model.CountComment</h6>
+            </button>
+        </div>
+    </a>
+
 </div>
 
 

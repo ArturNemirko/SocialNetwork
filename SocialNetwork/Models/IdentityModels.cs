@@ -12,7 +12,7 @@ namespace SocialNetwork.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser, ICloneable
     {
-        public string FirstName { get; set; }
+        public string Login { get; set; }
         public virtual Image ProfilePicture { get; set; }
         public virtual ICollection<Post> MyPosts { get; set; }
         public virtual ICollection<ApplicationUser> Readable { get; set; }
@@ -39,6 +39,7 @@ namespace SocialNetwork.Models
             {
                 AccessFailedCount = this.AccessFailedCount,
                 Email = this.Email,
+                Login = this.Login,
                 Id = this.Id,
                 ProfilePicture = this.ProfilePicture,
                 MyPosts = posts
@@ -51,6 +52,9 @@ namespace SocialNetwork.Models
         public DbSet<Description> Descriptions { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Post> Posts { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+
 
         public ApplicationDbContext()
             : base("SocialNetworkConnection", throwIfV1Schema: false)

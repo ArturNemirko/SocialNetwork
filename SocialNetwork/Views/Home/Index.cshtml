@@ -6,7 +6,7 @@
 <div class="row">
     @if (Model == null || Model.Count() == 0)
     {
-        <div class="col-md-6 col-lg-offset-3">
+        <div class="col-md-6 col-lg-offset-3" style="text-align:center">
             <h2>No posts</h2>
         </div>
     }
@@ -14,40 +14,33 @@
     {
         foreach (var post in Model)
         {
-            <div class="col-md-6 col-lg-offset-3 circle">
+            <a href="#">
+                <div class="col-md-6 col-lg-offset-3 circle">
 
-                <a href="@Url.Action("UserPage", new { id = post.Creator.Id })">
-                    <div class="row">
-                        <div class="col-md-1">
-                            <img src="@Url.Action("GetUserImage", "Global", new { id = post.Creator.Id })" class="avatar" alt="image">
+                    <a href="@Url.Action("UserPage", new { id = post.Creator.Id })">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <img src="@Url.Action("GetUserImage", "Global", new { id = post.Creator.Id })" class="avatar" alt="image">
+                            </div>
+                            <div class="col-md-11">
+                                <h4>@post.Creator.Login</h4>
+                            </div>
                         </div>
-                        <div class="col-md-11">
-                            <h4>@post.Creator.Email</h4>
-                        </div>
-                    </div>
-                </a>
+                    </a>
 
-                <p>
-                    @post.Description.Content
-                </p>
-                @using (Ajax.BeginForm("Like", new AjaxOptions { UpdateTargetId = post.Id.ToString() }))
-                {
-                    <div id="@post.Id.ToString()">
-                        @Html.Partial("Like", post)
-                    </div>
-                }
-            </div>
+                    <p>
+                        @post.Description.Content
+                    </p>
+                    @using (Ajax.BeginForm("Like", new AjaxOptions { UpdateTargetId = post.Id.ToString() }))
+                    {
+                        <div id="@post.Id.ToString()">
+                            @Html.Partial("Like", post)
+                        </div>
+                    }
+                </div>
+            </a>
         }
 
 
     }
 </div>
-@section scripts{
-    <script type="text/javascript">
-        $(function () {
-            $("[data-autocomplete-source]").each(function () {
-                var target = $(this);
-                target.autocomplete({ source: target.attr("data-autocomplete-source") });
-            });
-        });
-    </script>}

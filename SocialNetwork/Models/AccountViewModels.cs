@@ -70,6 +70,11 @@ namespace SocialNetwork.Models
         public string Email { get; set; }
 
         [Required]
+        [StringLength(100, ErrorMessage = "Minimum Length 1 character.", MinimumLength = 1)]
+        [Display(Name = "Login")]
+        public string Login { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

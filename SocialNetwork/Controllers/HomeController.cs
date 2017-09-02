@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -50,20 +51,61 @@ namespace SocialNetwork.Controllers
 
         public ActionResult Index()
         {
+            //using (ApplicationDbContext context = new ApplicationDbContext())
+            //{
+            //    string idCrntUser = User.Identity.GetUserId();
+            //    var user = context.Users.FirstOrDefault(u => u.Id == idCrntUser);
+
+            //    if((user.Readable == null || user.Readable.Count == 0) && 
+            //        (user.MyPosts == null || user.MyPosts.Count == 0))
+            //    {
+            //        return View();
+            //    }  
+
+            //    var posts = new LinkedList<PostViewModel>();
+
+            //    foreach(var item in user.MyPosts)
+            //    {
+            //        var post = GeneratePVM(item);
+
+            //        posts.AddLast(post);
+            //    }
+
+            //    foreach (var item in user.Readable)
+            //    {
+            //        foreach (var p in item.MyPosts)
+            //        {
+            //            var post = GeneratePVM(p);
+
+            //            posts.AddLast(post);
+            //        }
+            //    }
+            //    return View(posts.OrderByDescending(u => u.DatePublish));
+            //}
+            var posts = GeneratePosts();
+            if (posts != null)
+            {
+                return View(posts.OrderByDescending(u => u.DatePublish));
+            }
+            return View();
+        }
+
+        private ICollection<PostViewModel> GeneratePosts()
+        {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 string idCrntUser = User.Identity.GetUserId();
                 var user = context.Users.FirstOrDefault(u => u.Id == idCrntUser);
 
-                if((user.Readable == null || user.Readable.Count == 0) && 
+                if ((user.Readable == null || user.Readable.Count == 0) &&
                     (user.MyPosts == null || user.MyPosts.Count == 0))
                 {
-                    return View();
-                }  
-  
+                    return null;
+                }
+
                 var posts = new LinkedList<PostViewModel>();
 
-                foreach(var item in user.MyPosts)
+                foreach (var item in user.MyPosts)
                 {
                     var post = GeneratePVM(item);
 
@@ -79,14 +121,15 @@ namespace SocialNetwork.Controllers
                         posts.AddLast(post);
                     }
                 }
-                return View(posts.OrderByDescending(u => u.DatePublish));
+
+                return posts;
             }
         }
 
         [HttpPost]
         public ActionResult Like(PostViewModel postVM)
         {
-            using(ApplicationDbContext context = new ApplicationDbContext())
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 var post = context.Posts.First(u => u.Id == postVM.Id);
 
@@ -103,7 +146,7 @@ namespace SocialNetwork.Controllers
                 }
 
                 postVM = GeneratePVM(post, !postVM.Like);
-                
+
                 context.Entry(post).State = EntityState.Modified;
                 context.SaveChanges();
 
@@ -113,7 +156,7 @@ namespace SocialNetwork.Controllers
 
         private PostViewModel GeneratePVM(Post p, bool? likePost = null)
         {
-            using(ApplicationDbContext context = new ApplicationDbContext())
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 string idCrntUser = User.Identity.GetUserId();
                 var user = context.Users.FirstOrDefault(u => u.Id == idCrntUser);
@@ -128,6 +171,7 @@ namespace SocialNetwork.Controllers
                 };
 
                 post.CountLike = p.Likes.Count;
+                post.CountComment = p.Comments.Count;
 
                 if (likePost != null)
                 {
@@ -144,10 +188,15 @@ namespace SocialNetwork.Controllers
                         }
                     }
                 }
+                post.Comments = new LinkedList<Comment>();
+                foreach (var item in p.Comments)
+                {
+                    post.Comments.Add((Comment)item.Clone());
+                }
 
                 return post;
             }
-            
+
         }
 
         public ActionResult CreatePost()
@@ -169,7 +218,7 @@ namespace SocialNetwork.Controllers
                 post.Creator = user;
                 user.MyPosts.Add(post);
                 UserManager.Update(user);
-                return View("Index");
+                return View("Index", GeneratePosts().OrderByDescending(u => u.DatePublish));
             }
             return View();
         }
@@ -198,6 +247,35 @@ namespace SocialNetwork.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult WriteComment(Guid Id, string comment)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var post = context.Posts.FirstOrDefault(u => u.Id == Id);
+
+                string idCrntUser = User.Identity.GetUserId();
+                var user = context.Users.FirstOrDefault(u => u.Id == idCrntUser);
+
+                Comment comm = new Comment()
+                {
+                    Description = new Description()
+                    {
+                        Content = comment
+                    },
+                    Creator = user
+                };
+
+                post.Comments.Add(comm);
+
+                context.Entry(post).State = EntityState.Modified;
+                context.SaveChanges();
+
+                return View("PostPage", GeneratePVM(post));
+            }
+        }
+
         public ActionResult SearchUser()
         {
             return View();
@@ -211,7 +289,20 @@ namespace SocialNetwork.Controllers
                 var models = context.Users.Where(a => a.Email.Contains(name))
                              .Select(a => a)
                              .Distinct();
-                return View(models.ToList());
+
+                var users = new LinkedList<SearchUserViewModel>();
+                string idCrntUser = User.Identity.GetUserId();
+
+                foreach (var item in models.ToList())
+                {
+                    var user = new SearchUserViewModel() { User = item };
+                    if(idCrntUser == item.Id)
+                    {
+                        user.IsYou = true;
+                    }
+                    users.AddLast(user);
+                }
+                return View(users);
             }
         }
 
@@ -232,7 +323,17 @@ namespace SocialNetwork.Controllers
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 var user = context.Users.FirstOrDefault(u => u.Id == id.ToString());
+
                 return View(user.Clone());
+            }
+        }
+
+        public ActionResult PostPage(Guid id)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var post = context.Posts.FirstOrDefault(u => u.Id == id);
+                return View(GeneratePVM(post));
             }
         }
 
@@ -255,6 +356,18 @@ namespace SocialNetwork.Controllers
             T new_obj = obj;
             return new_obj;
         }
+
+        #region PrivateMethods
+        private bool HasPassword()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user != null)
+            {
+                return user.PasswordHash != null;
+            }
+            return false;
+        }
+        #endregion
 
     }
 }

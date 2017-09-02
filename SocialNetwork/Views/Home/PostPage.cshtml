@@ -1,0 +1,61 @@
+﻿@model SocialNetwork.Models.PostViewModel
+@{
+    ViewBag.Title = "Post";
+}
+
+<div class="row">
+    <div class="col-md-6 col-lg-offset-3 circle">
+        <a href="@Url.Action("UserPage", new { id = Model.Creator.Id })">
+            <div class="row">
+                <div class="col-md-1">
+                    <img src="@Url.Action("GetUserImage", "Global", new { id = Model.Creator.Id })" class="avatar" alt="image">
+                </div>
+                <div class="col-md-11">
+                    <h4>@Model.Creator.Login</h4>
+                </div>
+
+            </div>
+        </a>
+        <p>
+            @Model.Description.Content
+        </p>
+    </div>
+
+    @using (Html.BeginForm("WriteComment", "Home"))
+    {
+        @Html.HiddenFor(u=>u.Id)
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-6 col-lg-offset-3 circle">
+            <div class="input-group" style="display:flex !important"> 
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <input type="text" name="comment"
+                       class="form-control"
+                       placeholder="Write a comment" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Write</button>
+                </span>
+            </div>
+        </div>
+    }
+
+    @foreach (var item in Model.Comments)
+    {
+        <div class="col-md-6 col-lg-offset-4 circle">
+            <a href="@Url.Action("UserPage", new { id = item.Creator.Id })">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="@Url.Action("GetUserImage", "Global", new { id = item.Creator.Id })" class="avatar" alt="image">
+                    </div>
+                    <div class="col-md-11">
+                        <h4>@item.Creator.Login</h4>
+                    </div>
+
+                </div>
+            </a>
+            <p>
+                @item.Description.Content
+            </p>
+        </div>
+    }
+</div>

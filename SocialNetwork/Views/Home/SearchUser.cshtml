@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SocialNetwork.Models.ApplicationUser>
+﻿@model IEnumerable<SocialNetwork.Models.SearchUserViewModel>
 @{
     ViewBag.Title = "SearchUser";
 }
@@ -13,11 +13,33 @@
     @Html.ValidationSummary("", new { @class = "text-danger" })
     foreach (var item in Model)
     {
-        <a href="@Url.Action("UserPage", new { id = item.Id })">
-            <div class="col-md-10">
-                <h3>@item.Email</h3>
-            </div>
-        </a>
+        if (item.IsYou)
+        {
+            <a href="@Url.Action("Index", "Manage")">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="@Url.Action("GetUserImage", "Global", new { id = item.User.Id })" class="avatar" alt="image">
+                    </div>
+                    <div class="col-md-11">
+                        <h4>@item.User.Login</h4>
+                    </div>
+                </div>
+            </a>
+        }
+        else
+        {
+
+            <a href="@Url.Action("UserPage", new { id = item.User.Id })">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="@Url.Action("GetUserImage", "Global", new { id = item.User.Id })" class="avatar" alt="image">
+                    </div>
+                    <div class="col-md-11">
+                        <h4>@item.User.Login</h4>
+                    </div>
+                </div>
+            </a>
+        }
 
     }
 }

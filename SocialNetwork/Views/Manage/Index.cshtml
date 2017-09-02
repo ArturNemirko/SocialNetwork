@@ -7,48 +7,30 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <a class="be-ava-user style-2" href="#">
-                <img src="@Url.Action("GetUserImage", "Global", new { id = Model.User.Id })" class="userpic" alt="image">
-            </a>                             
-            <h4>@Model.User.Email</h4>
-            @Html.ActionLink("Change profile", "ChangeProfile")
-        </div>
-
-        <div class="col-md-6">
-            @foreach (var post in Model.User.MyPosts)
-            {
-                <a href="@Url.Action("UserPage", "Home", new { id = post.Creator.Id })">
-                    <h2>@post.Creator.Email</h2>
+    <form>
+        <h4>Change your account settings</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <a class="be-ava-user style-2" href="#">
+                    <img src="@Url.Action("GetUserImage", "Global", new { id = Model.User.Id })" class="userpic" alt="image">
                 </a>
-                <p>
-                    @post.Description.Content
-                </p>
-            }
-        </div>
+                <h4>@Model.User.Login</h4>
+                @Html.ActionLink("Change profile", "ChangeProfile")
+            </div>
 
-    </div>
-    @*<dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
+            <div class="col-md-6">
+                @foreach (var post in Model.User.MyPosts)
             {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-    </dl>*@
+                    <a href="@Url.Action("UserPage", "Home", new { id = post.Creator.Id })">
+                        <h2>@post.Creator.Login</h2>
+                    </a>
+                    <p>
+                        @post.Description.Content
+                    </p>
+                }
+            </div>
+
+        </div>
+    </form>
 </div>

@@ -246,6 +246,14 @@
     <Compile Include="Migrations\201709011507435_Test.Designer.cs">
       <DependentUpon>201709011507435_Test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709020623422_Comments1.cs" />
+    <Compile Include="Migrations\201709020623422_Comments1.Designer.cs">
+      <DependentUpon>201709020623422_Comments1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709020637551_Login.cs" />
+    <Compile Include="Migrations\201709020637551_Login.Designer.cs">
+      <DependentUpon>201709020637551_Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entities\Comment.cs" />
@@ -261,6 +269,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\image\ava_10.jpg" />
+    <Content Include="Content\image\default.jpg" />
+    <Content Include="Content\image\default.png" />
+    <Content Include="Content\image\like.png" />
+    <Content Include="Content\image\like24.png" />
+    <Content Include="Content\image\likeclick24.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -306,6 +320,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\autocomplete.search.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -367,7 +382,7 @@
     <Content Include="Views\Home\UserPage.cshtml" />
     <Content Include="Views\Manage\ChangeProfile.cshtml" />
     <Content Include="Views\Home\Like.cshtml" />
-    <Content Include="Views\Home\Post.cshtml" />
+    <Content Include="Views\Home\PostPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -414,6 +429,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709011507435_Test.resx">
       <DependentUpon>201709011507435_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709020623422_Comments1.resx">
+      <DependentUpon>201709020623422_Comments1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709020637551_Login.resx">
+      <DependentUpon>201709020637551_Login.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

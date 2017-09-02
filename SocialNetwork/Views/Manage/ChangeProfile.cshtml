@@ -15,7 +15,7 @@
     {
         @Html.Hidden("User.Id", Model.User.Id)
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <img src="@Url.Action("GetUserImage", "Global", new { id = Model.User.Id })" class="userpic" alt="image">
                 <h4>Change profile picture</h4>
 
@@ -35,7 +35,9 @@
                 }
                 ]
                 <hr/>
-                <input type="submit" @*title="Save changes" value="Save changes"*@/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Save</button>
+                </span>
             </div>
         </div>
     }
